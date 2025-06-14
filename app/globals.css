@@ -2,6 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -24,11 +37,6 @@
     --input: 0 0% 89.8%;
     --ring: 0 0% 3.9%;
     --radius: 0.5rem;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
   }
 
   .dark {
@@ -51,69 +59,168 @@
     --border: 0 0% 14.9%;
     --input: 0 0% 14.9%;
     --ring: 0 0% 83.1%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
   }
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
+.ash-gray-50 {
+  color: #f8f9fa;
+}
+.ash-gray-100 {
+  color: #e9ecef;
+}
+.ash-gray-200 {
+  color: #dee2e6;
+}
+.ash-gray-300 {
+  color: #ced4da;
+}
+.ash-gray-400 {
+  color: #adb5bd;
+}
+.ash-gray-500 {
+  color: #6c757d;
+}
+.ash-gray-600 {
+  color: #495057;
+}
+.ash-gray-700 {
+  color: #343a40;
+}
+.ash-gray-800 {
+  color: #212529;
+}
+.ash-gray-900 {
+  color: #1a1d20;
 }
 
-/* Custom scrollbar */
-.custom-scrollbar::-webkit-scrollbar {
-  width: 6px;
+.bg-ash-gray-50 {
+  background-color: #f8f9fa;
+}
+.bg-ash-gray-100 {
+  background-color: #e9ecef;
+}
+.bg-ash-gray-200 {
+  background-color: #dee2e6;
+}
+.bg-ash-gray-300 {
+  background-color: #ced4da;
+}
+.bg-ash-gray-400 {
+  background-color: #adb5bd;
+}
+.bg-ash-gray-500 {
+  background-color: #6c757d;
+}
+.bg-ash-gray-600 {
+  background-color: #495057;
+}
+.bg-ash-gray-700 {
+  background-color: #343a40;
+}
+.bg-ash-gray-800 {
+  background-color: #212529;
+}
+.bg-ash-gray-900 {
+  background-color: #1a1d20;
 }
 
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: rgba(107, 114, 128, 0.1);
-  border-radius: 3px;
+.text-ash-gray-50 {
+  color: #f8f9fa;
+}
+.text-ash-gray-100 {
+  color: #e9ecef;
+}
+.text-ash-gray-200 {
+  color: #dee2e6;
+}
+.text-ash-gray-300 {
+  color: #ced4da;
+}
+.text-ash-gray-400 {
+  color: #adb5bd;
+}
+.text-ash-gray-500 {
+  color: #6c757d;
+}
+.text-ash-gray-600 {
+  color: #495057;
+}
+.text-ash-gray-700 {
+  color: #343a40;
+}
+.text-ash-gray-800 {
+  color: #212529;
+}
+.text-ash-gray-900 {
+  color: #1a1d20;
 }
 
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(255, 107, 53, 0.5);
-  border-radius: 3px;
+.border-ash-gray-50 {
+  border-color: #f8f9fa;
+}
+.border-ash-gray-100 {
+  border-color: #e9ecef;
+}
+.border-ash-gray-200 {
+  border-color: #dee2e6;
+}
+.border-ash-gray-300 {
+  border-color: #ced4da;
+}
+.border-ash-gray-400 {
+  border-color: #adb5bd;
+}
+.border-ash-gray-500 {
+  border-color: #6c757d;
+}
+.border-ash-gray-600 {
+  border-color: #495057;
+}
+.border-ash-gray-700 {
+  border-color: #343a40;
+}
+.border-ash-gray-800 {
+  border-color: #212529;
+}
+.border-ash-gray-900 {
+  border-color: #1a1d20;
 }
 
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 107, 53, 0.7);
+.bg-neon-orange-400 {
+  background-color: #ff8c42;
+}
+.bg-neon-orange-500 {
+  background-color: #ff6b35;
+}
+.bg-neon-orange-600 {
+  background-color: #e55a2b;
+}
+.bg-neon-orange-700 {
+  background-color: #cc4a21;
 }
 
-/* Animaciones personalizadas */
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
+.text-neon-orange-400 {
+  color: #ff8c42;
+}
+.text-neon-orange-500 {
+  color: #ff6b35;
+}
+.text-neon-orange-600 {
+  color: #e55a2b;
+}
+.text-neon-orange-700 {
+  color: #cc4a21;
 }
 
-.animate-float {
-  animation: float 3s ease-in-out infinite;
+.border-neon-orange-400 {
+  border-color: #ff8c42;
 }
-
-/* Efectos de glass */
-.glass-effect {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+.border-neon-orange-500 {
+  border-color: #ff6b35;
 }
-
-/* Gradientes personalizados */
-.gradient-neon {
-  background: linear-gradient(135deg, #39ff14, #ff6b35);
+.border-neon-orange-600 {
+  border-color: #e55a2b;
 }
-
-.gradient-dark {
-  background: linear-gradient(180deg, #1a1a1a, #000000);
+.border-neon-orange-700 {
+  border-color: #cc4a21;
 }

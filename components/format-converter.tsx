@@ -4,8 +4,6 @@ import type React from "react"
 
 import { useState } from "react"
 import { Upload, Download, RefreshCw } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 export function FormatConverter() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
@@ -41,80 +39,83 @@ export function FormatConverter() {
   }
 
   return (
-    <div className="h-full p-6 bg-gradient-to-br from-ash-gray-900 to-ash-gray-800">
-      <div className="max-w-4xl mx-auto">
-        <div className="mb-8">
-          <h2 className="text-3xl font-bold text-white mb-2">Convertidor de Formatos</h2>
-          <p className="text-ash-gray-400">Convierte imágenes entre diferentes formatos de manera rápida y sencilla</p>
-        </div>
-
-        <div className="bg-ash-gray-800/30 backdrop-blur-sm rounded-3xl p-8 border border-ash-gray-700/30">
-          {/* Área de subida */}
+    <div className="h-full overflow-y-auto bg-gradient-to-br from-ash-gray-900 to-ash-gray-800">
+      <div className="p-6">
+        <div className="max-w-4xl mx-auto">
           <div className="mb-8">
-            <label className="block text-white font-medium mb-4">Seleccionar archivo</label>
-            <div className="border-2 border-dashed border-ash-gray-600 rounded-2xl p-8 text-center hover:border-neon-orange-500/50 transition-colors">
-              <input type="file" accept="image/*" onChange={handleFileSelect} className="hidden" id="file-input" />
-              <label htmlFor="file-input" className="cursor-pointer">
-                <Upload className="w-12 h-12 text-ash-gray-400 mx-auto mb-4" />
-                <p className="text-ash-gray-300 text-lg mb-2">
-                  {selectedFile ? selectedFile.name : "Haz clic para seleccionar una imagen"}
-                </p>
-                <p className="text-ash-gray-500 text-sm">Soporta PNG, JPG, GIF, WebP, SVG y más</p>
-              </label>
-            </div>
+            <h2 className="text-3xl font-bold text-white mb-2">Convertidor de Formatos</h2>
+            <p className="text-ash-gray-400">
+              Convierte imágenes entre diferentes formatos de manera rápida y sencilla
+            </p>
           </div>
 
-          {/* Selector de formato */}
-          <div className="mb-8">
-            <label className="block text-white font-medium mb-4">Formato de salida</label>
-            <Select value={outputFormat} onValueChange={setOutputFormat}>
-              <SelectTrigger className="w-full bg-ash-gray-800/50 border-ash-gray-600/50 text-white">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent className="bg-ash-gray-800 border-ash-gray-600">
+          <div className="bg-ash-gray-800/30 backdrop-blur-sm rounded-3xl p-8 border border-ash-gray-700/30">
+            {/* Área de subida */}
+            <div className="mb-8">
+              <label className="block text-white font-medium mb-4">Seleccionar archivo</label>
+              <div className="border-2 border-dashed border-ash-gray-600 rounded-2xl p-8 text-center hover:border-neon-orange-500/50 transition-colors">
+                <input type="file" accept="image/*" onChange={handleFileSelect} className="hidden" id="file-input" />
+                <label htmlFor="file-input" className="cursor-pointer">
+                  <Upload className="w-12 h-12 text-ash-gray-400 mx-auto mb-4" />
+                  <p className="text-ash-gray-300 text-lg mb-2">
+                    {selectedFile ? selectedFile.name : "Haz clic para seleccionar una imagen"}
+                  </p>
+                  <p className="text-ash-gray-500 text-sm">Soporta PNG, JPG, GIF, WebP, SVG y más</p>
+                </label>
+              </div>
+            </div>
+
+            {/* Selector de formato */}
+            <div className="mb-8">
+              <label className="block text-white font-medium mb-4">Formato de salida</label>
+              <select
+                value={outputFormat}
+                onChange={(e) => setOutputFormat(e.target.value)}
+                className="w-full px-4 py-3 bg-ash-gray-800/50 border border-ash-gray-600/50 rounded-lg text-white focus:border-neon-orange-500 focus:outline-none"
+              >
                 {formats.map((format) => (
-                  <SelectItem key={format.value} value={format.value} className="text-white hover:bg-ash-gray-700">
+                  <option key={format.value} value={format.value}>
                     {format.label}
-                  </SelectItem>
+                  </option>
                 ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          {/* Botón de conversión */}
-          <div className="flex justify-center">
-            <Button
-              onClick={handleConvert}
-              disabled={!selectedFile || isConverting}
-              className="bg-neon-orange-500 hover:bg-neon-orange-600 text-white px-8 py-3 text-lg font-medium disabled:opacity-50"
-            >
-              {isConverting ? (
-                <>
-                  <RefreshCw className="w-5 h-5 mr-2 animate-spin" />
-                  Convirtiendo...
-                </>
-              ) : (
-                <>
-                  <Download className="w-5 h-5 mr-2" />
-                  Convertir a {outputFormat.toUpperCase()}
-                </>
-              )}
-            </Button>
-          </div>
-
-          {/* Información adicional */}
-          <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-ash-gray-700/30 rounded-xl p-4 text-center">
-              <h4 className="text-white font-medium mb-2">Calidad Premium</h4>
-              <p className="text-ash-gray-400 text-sm">Sin pérdida de calidad en la conversión</p>
+              </select>
             </div>
-            <div className="bg-ash-gray-700/30 rounded-xl p-4 text-center">
-              <h4 className="text-white font-medium mb-2">Procesamiento Rápido</h4>
-              <p className="text-ash-gray-400 text-sm">Conversión instantánea en tu navegador</p>
+
+            {/* Botón de conversión */}
+            <div className="flex justify-center mb-8">
+              <button
+                onClick={handleConvert}
+                disabled={!selectedFile || isConverting}
+                className="bg-neon-orange-500 hover:bg-neon-orange-600 text-white px-8 py-3 text-lg font-medium rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
+              >
+                {isConverting ? (
+                  <>
+                    <RefreshCw className="w-5 h-5 animate-spin" />
+                    Convirtiendo...
+                  </>
+                ) : (
+                  <>
+                    <Download className="w-5 h-5" />
+                    Convertir a {outputFormat.toUpperCase()}
+                  </>
+                )}
+              </button>
             </div>
-            <div className="bg-ash-gray-700/30 rounded-xl p-4 text-center">
-              <h4 className="text-white font-medium mb-2">Privacidad Total</h4>
-              <p className="text-ash-gray-400 text-sm">Tus archivos no salen de tu dispositivo</p>
+
+            {/* Información adicional */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="bg-ash-gray-700/30 rounded-xl p-4 text-center">
+                <h4 className="text-white font-medium mb-2">Calidad Premium</h4>
+                <p className="text-ash-gray-400 text-sm">Sin pérdida de calidad en la conversión</p>
+              </div>
+              <div className="bg-ash-gray-700/30 rounded-xl p-4 text-center">
+                <h4 className="text-white font-medium mb-2">Procesamiento Rápido</h4>
+                <p className="text-ash-gray-400 text-sm">Conversión instantánea en tu navegador</p>
+              </div>
+              <div className="bg-ash-gray-700/30 rounded-xl p-4 text-center">
+                <h4 className="text-white font-medium mb-2">Privacidad Total</h4>
+                <p className="text-ash-gray-400 text-sm">Tus archivos no salen de tu dispositivo</p>
+              </div>
             </div>
           </div>
         </div>

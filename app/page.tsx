@@ -1,165 +1,288 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Sidebar } from "@/components/sidebar"
+import { MultiBoxCanvas } from "@/components/multi-box-canvas"
+import { MultiBoxTools } from "@/components/multi-box-tools"
+import { IconGenerator } from "@/components/icon-generator"
 import { Header } from "@/components/header"
-import { WorkspaceCanvas } from "@/components/workspace-canvas"
-import { WorkspaceTools } from "@/components/workspace-tools"
 import { TemplateGallery } from "@/components/template-gallery"
 import { FormatConverter } from "@/components/format-converter"
 import { EmailTemplates } from "@/components/email-templates"
 import { PushNotificationDesigner } from "@/components/push-notification-designer"
 import { PrintingTools } from "@/components/printing-tools"
-
-interface BoxData {
-  id: string
-  dimensions: { width: number; height: number; depth: number }
-  faces: Array<{
-    id: string
-    name: string
-    texture: string | null
-    color: string
-    text: string
-    fontSize: number
-    fontFamily: string
-  }>
-  boxType: "software" | "dvd" | "cd" | "icon" | "desktop"
-}
+import { IntroVideo } from "@/components/intro-video"
 
 export default function Home() {
+  const [showIntro, setShowIntro] = useState(true)
   const [activeTab, setActiveTab] = useState("3dbox")
+  const [selectedBoxId, setSelectedBoxId] = useState("box-1")
   const [selectedFaceId, setSelectedFaceId] = useState("front")
 
-  const [currentBox, setCurrentBox] = useState<BoxData>({
-    id: "main-box",
-    dimensions: { width: 190, height: 270, depth: 25 },
-    boxType: "software",
-    faces: [
-      {
-        id: "front",
-        name: "Frontal",
-        texture: null,
-        color: "#f8f9fa",
-        text: "",
-        fontSize: 24,
-        fontFamily: "Arial, sans-serif",
-      },
-      {
-        id: "back",
-        name: "Trasera",
-        texture: null,
-        color: "#f0f0f0",
-        text: "",
-        fontSize: 18,
-        fontFamily: "Arial, sans-serif",
-      },
-      {
-        id: "left",
-        name: "Izquierda",
-        texture: null,
-        color: "#f0f0f0",
-        text: "",
-        fontSize: 16,
-        fontFamily: "Arial, sans-serif",
-      },
-      {
-        id: "right",
-        name: "Derecha",
-        texture: null,
-        color: "#f0f0f0",
-        text: "",
-        fontSize: 16,
-        fontFamily: "Arial, sans-serif",
-      },
-      {
-        id: "top",
-        name: "Superior",
-        texture: null,
-        color: "#f0f0f0",
-        text: "",
-        fontSize: 14,
-        fontFamily: "Arial, sans-serif",
-      },
-      {
-        id: "bottom",
-        name: "Inferior",
-        texture: null,
-        color: "#f0f0f0",
-        text: "",
-        fontSize: 14,
-        fontFamily: "Arial, sans-serif",
-      },
-    ],
-  })
+  const [boxes, setBoxes] = useState([
+    {
+      id: "box-1",
+      position: [0, 0, 0] as [number, number, number],
+      dimensions: { width: 190, height: 270, depth: 25 },
+      faces: [
+        {
+          id: "front",
+          name: "Frontal",
+          texture: null,
+          color: "#4a90e2",
+          text: "3DBox Studio",
+          fontSize: 32,
+          fontFamily: "Arial, sans-serif",
+        },
+        {
+          id: "back",
+          name: "Trasera",
+          texture: null,
+          color: "#f0f0f0",
+          text: "Información",
+          fontSize: 16,
+          fontFamily: "Arial, sans-serif",
+        },
+        {
+          id: "left",
+          name: "Izquierda",
+          texture: null,
+          color: "#ff6b35",
+          text: "2025",
+          fontSize: 24,
+          fontFamily: "Arial, sans-serif",
+        },
+        {
+          id: "right",
+          name: "Derecha",
+          texture: null,
+          color: "#ff6b35",
+          text: "2025",
+          fontSize: 24,
+          fontFamily: "Arial, sans-serif",
+        },
+        {
+          id: "top",
+          name: "Superior",
+          texture: null,
+          color: "#8bc34a",
+          text: "TOP",
+          fontSize: 20,
+          fontFamily: "Arial, sans-serif",
+        },
+        {
+          id: "bottom",
+          name: "Inferior",
+          texture: null,
+          color: "#666666",
+          text: "BOTTOM",
+          fontSize: 20,
+          fontFamily: "Arial, sans-serif",
+        },
+      ],
+      boxType: "software" as const,
+    },
+  ])
 
-  const handleBoxUpdate = (updates: Partial<BoxData>) => {
-    setCurrentBox((prev) => ({ ...prev, ...updates }))
+  // Auto-ocultar intro después de 5 segundos
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowIntro(false)
+    }, 5000)
+
+    return () => clearTimeout(timer)
+  }, [])
+
+  const addNewBox = () => {
+    const newBox = {
+      id: `box-${Date.now()}`,
+      position: [Math.random() * 4 - 2, 0, Math.random() * 4 - 2] as [number, number, number],
+      dimensions: { width: 190, height: 270, depth: 25 },
+      faces: [
+        {
+          id: "front",
+          name: "Frontal",
+          texture: null,
+          color: "#4a90e2",
+          text: "Nueva Caja",
+          fontSize: 32,
+          fontFamily: "Arial, sans-serif",
+        },
+        {
+          id: "back",
+          name: "Trasera",
+          texture: null,
+          color: "#f0f0f0",
+          text: "Información",
+          fontSize: 16,
+          fontFamily: "Arial, sans-serif",
+        },
+        {
+          id: "left",
+          name: "Izquierda",
+          texture: null,
+          color: "#ff6b35",
+          text: "2025",
+          fontSize: 24,
+          fontFamily: "Arial, sans-serif",
+        },
+        {
+          id: "right",
+          name: "Derecha",
+          texture: null,
+          color: "#ff6b35",
+          text: "2025",
+          fontSize: 24,
+          fontFamily: "Arial, sans-serif",
+        },
+        {
+          id: "top",
+          name: "Superior",
+          texture: null,
+          color: "#8bc34a",
+          text: "TOP",
+          fontSize: 20,
+          fontFamily: "Arial, sans-serif",
+        },
+        {
+          id: "bottom",
+          name: "Inferior",
+          texture: null,
+          color: "#666666",
+          text: "BOTTOM",
+          fontSize: 20,
+          fontFamily: "Arial, sans-serif",
+        },
+      ],
+      boxType: "software" as const,
+    }
+    setBoxes([...boxes, newBox])
+    setSelectedBoxId(newBox.id)
   }
 
-  const handleFaceUpdate = (faceId: string, updates: any) => {
-    setCurrentBox((prev) => ({
-      ...prev,
-      faces: prev.faces.map((face) => (face.id === faceId ? { ...face, ...updates } : face)),
-    }))
+  const duplicateBox = (boxId: string) => {
+    const boxToDuplicate = boxes.find((box) => box.id === boxId)
+    if (boxToDuplicate) {
+      const newBox = {
+        ...boxToDuplicate,
+        id: `box-${Date.now()}`,
+        position: [boxToDuplicate.position[0] + 2, boxToDuplicate.position[1], boxToDuplicate.position[2]] as [
+          number,
+          number,
+          number,
+        ],
+      }
+      setBoxes([...boxes, newBox])
+      setSelectedBoxId(newBox.id)
+    }
+  }
+
+  const deleteBox = (boxId: string) => {
+    if (boxes.length > 1) {
+      const newBoxes = boxes.filter((box) => box.id !== boxId)
+      setBoxes(newBoxes)
+      if (selectedBoxId === boxId) {
+        setSelectedBoxId(newBoxes[0].id)
+      }
+    }
+  }
+
+  const updateBox = (boxId: string, updates: any) => {
+    setBoxes(boxes.map((box) => (box.id === boxId ? { ...box, ...updates } : box)))
+  }
+
+  const updateFace = (boxId: string, faceId: string, updates: any) => {
+    setBoxes(
+      boxes.map((box) =>
+        box.id === boxId
+          ? {
+              ...box,
+              faces: box.faces.map((face) => (face.id === faceId ? { ...face, ...updates } : face)),
+            }
+          : box,
+      ),
+    )
+  }
+
+  const renderContent = () => {
+    switch (activeTab) {
+      case "3dbox":
+        return (
+          <div className="flex h-full">
+            <div className="flex-1">
+              <MultiBoxCanvas
+                boxes={boxes}
+                selectedBoxId={selectedBoxId}
+                selectedFaceId={selectedFaceId}
+                onBoxSelect={setSelectedBoxId}
+                onFaceSelect={setSelectedFaceId}
+                onBoxUpdate={updateBox}
+                onFaceUpdate={updateFace}
+              />
+            </div>
+            <MultiBoxTools
+              boxes={boxes}
+              selectedBoxId={selectedBoxId}
+              selectedFaceId={selectedFaceId}
+              onBoxAdd={addNewBox}
+              onBoxDuplicate={duplicateBox}
+              onBoxDelete={deleteBox}
+              onBoxUpdate={updateBox}
+              onFaceUpdate={updateFace}
+            />
+          </div>
+        )
+      case "icons":
+        return <IconGenerator />
+      case "templates":
+        return <TemplateGallery />
+      case "converter":
+        return <FormatConverter />
+      case "email":
+        return <EmailTemplates />
+      case "notifications":
+        return <PushNotificationDesigner />
+      case "print":
+        return <PrintingTools />
+      default:
+        return (
+          <div className="flex h-full">
+            <div className="flex-1">
+              <MultiBoxCanvas
+                boxes={boxes}
+                selectedBoxId={selectedBoxId}
+                selectedFaceId={selectedFaceId}
+                onBoxSelect={setSelectedBoxId}
+                onFaceSelect={setSelectedFaceId}
+                onBoxUpdate={updateBox}
+                onFaceUpdate={updateFace}
+              />
+            </div>
+            <MultiBoxTools
+              boxes={boxes}
+              selectedBoxId={selectedBoxId}
+              selectedFaceId={selectedFaceId}
+              onBoxAdd={addNewBox}
+              onBoxDuplicate={duplicateBox}
+              onBoxDelete={deleteBox}
+              onBoxUpdate={updateBox}
+              onFaceUpdate={updateFace}
+            />
+          </div>
+        )
+    }
+  }
+
+  if (showIntro) {
+    return <IntroVideo onComplete={() => setShowIntro(false)} />
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-ash-gray-900 via-ash-gray-900 to-black">
+    <div className="w-screen h-screen bg-gradient-to-br from-ash-gray-900 to-ash-gray-800 flex flex-col overflow-hidden">
       <Header />
-
-      <div className="flex h-[calc(100vh-4rem)]">
+      <div className="flex flex-1 overflow-hidden">
         <Sidebar activeTab={activeTab} onTabChange={setActiveTab} />
-
-        <main className="flex-1 flex overflow-hidden">
-          {activeTab === "3dbox" && (
-            <>
-              <WorkspaceCanvas
-                box={currentBox}
-                selectedFaceId={selectedFaceId}
-                onFaceSelect={setSelectedFaceId}
-                onBoxUpdate={handleBoxUpdate}
-                onFaceUpdate={handleFaceUpdate}
-              />
-
-              <WorkspaceTools
-                box={currentBox}
-                selectedFaceId={selectedFaceId}
-                onBoxUpdate={handleBoxUpdate}
-                onFaceUpdate={handleFaceUpdate}
-              />
-            </>
-          )}
-
-          {activeTab === "templates" && (
-            <div className="flex-1 overflow-hidden">
-              <TemplateGallery />
-            </div>
-          )}
-
-          {activeTab === "converter" && (
-            <div className="flex-1 overflow-hidden">
-              <FormatConverter />
-            </div>
-          )}
-
-          {activeTab === "email" && (
-            <div className="flex-1 overflow-hidden">
-              <EmailTemplates />
-            </div>
-          )}
-
-          {activeTab === "notifications" && (
-            <div className="flex-1 overflow-hidden">
-              <PushNotificationDesigner />
-            </div>
-          )}
-
-          {activeTab === "print" && (
-            <div className="flex-1 overflow-hidden">
-              <PrintingTools />
-            </div>
-          )}
-        </main>
+        <div className="flex-1 overflow-hidden">{renderContent()}</div>
       </div>
     </div>
   )

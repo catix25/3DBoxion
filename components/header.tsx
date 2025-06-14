@@ -1,7 +1,6 @@
 "use client"
 
-import { Box, Download, Save, Share2, Settings, Wifi, WifiOff } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Download, Save, Share2, Settings, Wifi, WifiOff } from "lucide-react"
 import { useState, useEffect } from "react"
 
 export function Header() {
@@ -23,12 +22,12 @@ export function Header() {
   return (
     <header className="h-16 bg-ash-gray-800/80 backdrop-blur-md border-b border-ash-gray-700/50 flex items-center justify-between px-6">
       <div className="flex items-center gap-3">
-        <div className="w-10 h-10 bg-gradient-to-br from-neon-orange-400 to-neon-orange-600 rounded-xl flex items-center justify-center shadow-neon">
-          <Box className="w-6 h-6 text-white" />
+        <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl shadow-lg flex items-center justify-center text-white font-bold">
+          3D
         </div>
         <div>
           <h1 className="text-xl font-bold text-white">3DBox Studio</h1>
-          <p className="text-xs text-ash-gray-400">Creador Profesional de Portadas 3D</p>
+          <p className="text-xs text-ash-gray-400">Create Studio 2025</p>
         </div>
       </div>
 
@@ -42,24 +41,24 @@ export function Header() {
           {isOnline ? "Conectado" : "Sin conexión"}
         </div>
 
-        <Button variant="ghost" size="sm" className="text-ash-gray-300 hover:text-white hover:bg-ash-gray-700/50">
-          <Save className="w-4 h-4 mr-2" />
-          Guardar
-        </Button>
+        <button className="text-ash-gray-300 hover:text-white hover:bg-ash-gray-700/50 p-2 rounded-lg transition-colors flex items-center gap-2">
+          <Save className="w-4 h-4" />
+          <span className="text-sm">Guardar</span>
+        </button>
 
-        <Button variant="ghost" size="sm" className="text-ash-gray-300 hover:text-white hover:bg-ash-gray-700/50">
-          <Download className="w-4 h-4 mr-2" />
-          Exportar
-        </Button>
+        <button className="text-ash-gray-300 hover:text-white hover:bg-ash-gray-700/50 p-2 rounded-lg transition-colors flex items-center gap-2">
+          <Download className="w-4 h-4" />
+          <span className="text-sm">Exportar</span>
+        </button>
 
-        <Button variant="ghost" size="sm" className="text-ash-gray-300 hover:text-white hover:bg-ash-gray-700/50">
-          <Share2 className="w-4 h-4 mr-2" />
-          Compartir
-        </Button>
+        <button className="text-ash-gray-300 hover:text-white hover:bg-ash-gray-700/50 p-2 rounded-lg transition-colors flex items-center gap-2">
+          <Share2 className="w-4 h-4" />
+          <span className="text-sm">Compartir</span>
+        </button>
 
-        <Button variant="ghost" size="sm" className="text-ash-gray-300 hover:text-white hover:bg-ash-gray-700/50">
+        <button className="text-ash-gray-300 hover:text-white hover:bg-ash-gray-700/50 p-2 rounded-lg transition-colors">
           <Settings className="w-4 h-4" />
-        </Button>
+        </button>
       </div>
     </header>
   )
